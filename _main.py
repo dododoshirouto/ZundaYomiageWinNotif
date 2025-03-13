@@ -5,7 +5,7 @@ from systemtray import TrayApp
 from voicevox_yomiage import VoicevoxYomiage, VV_Speaker
 
 
-vv = VoicevoxYomiage()
+vv = VoicevoxYomiage(speaker_id=VV_Speaker.ずんだもん.value)
 tray = None
 
 def init():
