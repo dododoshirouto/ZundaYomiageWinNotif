@@ -17,6 +17,9 @@ def init():
 
 async def loop():
     # print("loop")
+    if vv.speaker_id != tray.speaker.value:
+        vv.set_speaker(tray.speaker.value)
+
     texts = get_notifications()
     for text in texts:
         tray.is_talking = True
