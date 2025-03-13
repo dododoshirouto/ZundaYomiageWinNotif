@@ -3,6 +3,9 @@ pillow
 # windows system tray
 pystray
 
+# get windows notification center
+pywinauto
+
 # pyinstaller
 pyinstaller
 

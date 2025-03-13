@@ -4,7 +4,8 @@ from PIL import Image
 
 import time
 import threading
-import itertools
+import asyncio
+
 
 # システムトレイ
 import pystray
@@ -24,10 +25,11 @@ icons_interval = {
 }
 
 class TrayApp:
-    def __init__(self, active=True, loop=lambda: None):
+    def __init__(self, active=True, loop=lambda: None, loop_async=False):
         self.active = active
         self.is_talking = False
         self.loop = loop
+        self.loop_async = loop_async
 
         self.icons_current_name = None
         self.icons_current = None
@@ -62,9 +64,8 @@ class TrayApp:
 
     def build_menu(self):
         return Menu(
-            MenuItem("standby", lambda: self.set_icon("standby")),
-            MenuItem("talking", lambda: self.set_icon("talking")),
-            MenuItem("sleep", lambda: self.set_icon("sleep")),
+            MenuItem("ずんだ通知読み上げもん", lambda :None, enabled=False),
+            MenuItem("無効にする", self.stop) if self.active else MenuItem("有効にする", self.start),
             MenuItem("終了", self.on_quit)
         )
     
@@ -84,23 +85,28 @@ class TrayApp:
         self.icons_current_name = icon_name
         self.icons_current = self.icons.get(self.icons_current_name)
         self.icon.icon = self.icons_current[0]
-        self._update_menu()
 
     def run(self):
         self.icon.run()
     
     def loop_call(self):
         while self.active:
-            self.loop()
-            time.sleep(0.2)
+            if self.loop_async:
+                asyncio.run(self.loop())
+            else:
+                self.loop()
+            time.sleep(0.1)
 
     def start(self):
         self.active = True
+        self.is_talking = False
         self.thread = threading.Thread(target=self.loop_call, daemon=True)
         self.thread.start()
+        self._update_menu()
     
     def stop(self):
         self.active = False
+        self._update_menu()
 
     def on_quit(self, _):
         self.icon.stop()
@@ -110,6 +116,7 @@ class TrayApp:
         """メニューを最新状態に更新する"""
         self.icon.menu = self.build_menu()
         self.icon.update_menu()
+        self.set_icon()
     
 
     def icon_anim_loop(self):
