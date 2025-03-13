@@ -88,19 +88,11 @@ class TrayApp:
         # for img in itertools.cycle(self.icons_current):  # 無限ループで画像を切り替え
         while True:
             img = self.icons_current[now_icon % len(self.icons_current)]
-            if self.icon_anim_stop_event is not None and self.icon_anim_stop_event.is_set():
-                self.icon_anim_stop_event.clear()
-                break
             self.icon.icon = img  # アイコンを変更
             time.sleep(icons_interval.get(list(self.icons.keys())[list(self.icons.values()).index(self.icons_current)], 0.2))  # 0.5秒ごとに切り替え
             now_icon = (now_icon + 1) % len(self.icons_current)
     
     def icon_anim_start(self):
-        if self.icon_anim_thread is not None and self.icon_anim_thread.is_alive():
-            self.icon_anim_stop_event = threading.Event().set()
-            self.icon_anim_thread.join() #停止するまで待機
-        self.icon_anim_thread = None
-
         self.icon_anim_thread = threading.Thread(target=self.icon_anim_loop, daemon=True)
         self.icon_anim_thread.start()
 
