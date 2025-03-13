@@ -58,8 +58,8 @@ class TrayApp:
             menu=self.build_menu()
         )
 
-        self.icon_anim_start()
         self.set_icon("standby")
+        self.icon_anim_start()
         self.start()
 
     def build_menu(self):
