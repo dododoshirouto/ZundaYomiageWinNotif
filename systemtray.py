@@ -24,7 +24,14 @@ icons_interval = {
 }
 
 class TrayApp:
-    def __init__(self):
+    def __init__(self, active=True, loop=lambda: None):
+        self.active = active
+        self.is_talking = False
+        self.loop = loop
+
+        self.icons_current_name = None
+        self.icons_current = None
+
         # PyInstallerでパスを解決するときの対応:
         if hasattr(sys, '_MEIPASS'):
             # PyInstallerで固めたexeから実行されている場合
@@ -43,18 +50,15 @@ class TrayApp:
         # import json
         # print(json.dumps(icons_dict, indent=4, ensure_ascii=False))  # ensure_ascii=Falseで日本語をそのまま出力
 
-        # アイコンは初期オフ状態で
-        self.icons_current = self.icons.get("standby")
-
         self.icon = pystray.Icon(
             "Zunda Yomiage Win Notif",
-            self.icons_current[0],
+            self.icons.get("standby")[0],
             menu=self.build_menu()
         )
 
-        self.icon_anim_thread = None
-        self.icon_anim_stop_event = threading.Event()
         self.icon_anim_start()
+        self.set_icon("standby")
+        self.start()
 
     def build_menu(self):
         return Menu(
@@ -64,14 +68,39 @@ class TrayApp:
             MenuItem("終了", self.on_quit)
         )
     
-    def set_icon(self, icon_name="standby"):
-        self.icons_current = self.icons.get(icon_name)
+    def set_icon(self, icon_name=None):
+        if icon_name is None:
+            if self.active:
+                if self.is_talking:
+                    icon_name = "talking"
+                else:
+                    icon_name = "standby"
+            else:
+                icon_name = "sleep"
+
+        if self.icons_current_name == icon_name:
+            return
+
+        self.icons_current_name = icon_name
+        self.icons_current = self.icons.get(self.icons_current_name)
         self.icon.icon = self.icons_current[0]
-        # self.icon_anim_start()
         self._update_menu()
 
     def run(self):
         self.icon.run()
+    
+    def loop_call(self):
+        while self.active:
+            self.loop()
+            time.sleep(0.2)
+
+    def start(self):
+        self.active = True
+        self.thread = threading.Thread(target=self.loop_call, daemon=True)
+        self.thread.start()
+    
+    def stop(self):
+        self.active = False
 
     def on_quit(self, _):
         self.icon.stop()
@@ -100,6 +129,5 @@ class TrayApp:
 
 if __name__ == "__main__":
     tray = TrayApp()
-    tray.set_icon("talking")
     tray.run()
 

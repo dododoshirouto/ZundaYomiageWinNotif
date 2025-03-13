@@ -1,6 +1,7 @@
 /venv
 /build
 /dist
+/__pycache__
 # /_*
 *.lnk
 *.spec
