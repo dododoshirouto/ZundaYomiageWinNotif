@@ -1,9 +1,12 @@
 pillow
 
+# windows system tray
+pystray
+
+# pyinstaller
+pyinstaller
+
 # voicevox
 # https://github.com/VOICEVOX/voicevox_core/releases/download/0.15.7/voicevox_core-0.15.7+cpu-cp38-abi3-win_amd64.whl
 #   -> install in _install.bat
 pyaudio
-
-# pyinstaller
-pyinstaller
