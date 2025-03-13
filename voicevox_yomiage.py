@@ -2,6 +2,8 @@
 # Reference: https://qiita.com/taka7n/items/1dc61e507274b93ee868
 
 from enum import Enum
+import os
+import sys
 
 class VV_Speaker(Enum):
     四国めたん = 2
@@ -24,7 +26,15 @@ class VoicevoxYomiage:
         self.speaker_id = speaker_id
         self.speed_scale = speed
 
-        self.jtalk_path = Path(jtalk_path)
+        # PyInstallerでパスを解決するときの対応:
+        if hasattr(sys, '_MEIPASS'):
+            # PyInstallerで固めたexeから実行されている場合
+            base_path = sys._MEIPASS
+        else:
+            # 普通にPythonで実行している場合
+            base_path = os.path.dirname(__file__)
+
+        self.jtalk_path = os.path.join(base_path, jtalk_path)
         self.core = VoicevoxCore(open_jtalk_dict_dir=self.jtalk_path)
         self.core.load_model(self.speaker_id)  # 指定したidのモデルを読み込む
         self.pa = pyaudio.PyAudio()
@@ -58,8 +68,15 @@ class VoicevoxYomiage:
 
 
     def eng_to_kana_init(self):
+        # PyInstallerでパスを解決するときの対応:
+        if hasattr(sys, '_MEIPASS'):
+            # PyInstallerで固めたexeから実行されている場合
+            base_path = sys._MEIPASS
+        else:
+            # 普通にPythonで実行している場合
+            base_path = os.path.dirname(__file__)
 
-        dic_file = 'bep-eng.dic.txt'
+        dic_file = os.path.join(base_path, 'bep-eng.dic.txt')
         self.kana_dict = {}
         with open(dic_file, mode='r', encoding='utf-8') as f:
             lines = f.readlines()

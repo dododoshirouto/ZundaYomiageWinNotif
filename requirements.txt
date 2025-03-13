@@ -6,7 +6,7 @@ pystray
 # get windows notification center
 pywinauto
 
-# pyinstaller
+# build
 pyinstaller
 
 # voicevox
