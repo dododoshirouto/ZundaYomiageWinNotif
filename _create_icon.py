@@ -1,7 +1,7 @@
 from PIL import Image
 
 # 入力画像のパス
-input_path = "icons/on.png"
+input_path = "assets/standby.png"
 
 # 出力アイコンのパス
 output_path = "icon.ico"
