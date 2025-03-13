@@ -2,11 +2,26 @@ import sys
 import os
 from PIL import Image
 
+import time
+import threading
+import itertools
+
 # システムトレイ
 import pystray
 from pystray import Menu, MenuItem
 
 
+
+icons_dict = {
+    "standby": ["standby"],
+    "talking": ["talking", "talking_2", "talking_3"],
+    "sleep": ["sleep", "sleep_2"],
+}
+icons_interval = {
+    "standby": 0.2,
+    "talking": 0.2,
+    "sleep": 0.6,
+}
 
 class TrayApp:
     def __init__(self):
@@ -17,59 +32,46 @@ class TrayApp:
         else:
             # 普通にPythonで実行している場合
             base_path = os.path.dirname(__file__)
-            
-        off_icon_path = os.path.join(base_path, "icons", "off.png")
-        on_icon_path  = os.path.join(base_path, "icons", "on.png")
-        mosaic_icon_path = os.path.join(base_path, "icons", "mosaic.png")
-        black_icon_path  = os.path.join(base_path, "icons", "black.png")
 
-        self.icon_off = Image.open(off_icon_path)
-        self.icon_on = Image.open(on_icon_path)
-        self.icon_mosaic = Image.open(mosaic_icon_path)
-        self.icon_black = Image.open(black_icon_path)
+        self.icons = {}
+        for key, values in icons_dict.items():
+            self.icons[key] = []
+            for value in values:
+                icon_path = os.path.join(base_path, "assets", f"{value}.png")
+                self.icons[key].append(Image.open(icon_path))
+
+        # import json
+        # print(json.dumps(icons_dict, indent=4, ensure_ascii=False))  # ensure_ascii=Falseで日本語をそのまま出力
 
         # アイコンは初期オフ状態で
+        self.icons_current = self.icons.get("standby")
+
         self.icon = pystray.Icon(
             "Zunda Yomiage Win Notif",
-            self.icon_off,
+            self.icons_current[0],
             menu=self.build_menu()
         )
 
-    def build_menu(self):
-        """現在のモードを見てメニューのラベルを動的に変える"""
-        # ラベル生成用のヘルパ
-        def mode_label(mode_value, text):
-            return ("● " if self.streamer.mode == mode_value else "　") + text
+        self.icon_anim_thread = None
+        self.icon_anim_stop_event = threading.Event()
+        self.icon_anim_start()
 
+    def build_menu(self):
         return Menu(
-            MenuItem("配信開始", self.on_start),
-            MenuItem("配信停止", self.on_stop),
-            MenuItem("ストリームキー変更", self.on_change_key),
-            MenuItem(
-                "モード",
-                Menu(
-                    MenuItem(mode_label("normal", "普通"), self.on_mode_normal),
-                    MenuItem(mode_label("mosaic", "モザイク"), self.on_mode_mosaic),
-                    MenuItem(mode_label("black", "暗転"), self.on_mode_black),
-                )
-            ),
+            MenuItem("standby", lambda: self.set_icon("standby")),
+            MenuItem("talking", lambda: self.set_icon("talking")),
+            MenuItem("sleep", lambda: self.set_icon("sleep")),
             MenuItem("終了", self.on_quit)
         )
     
-    def set_icon(self):
-        self.icon.icon = self.icon_off
-        self.icon.update_menu()
+    def set_icon(self, icon_name="standby"):
+        self.icons_current = self.icons.get(icon_name)
+        self.icon.icon = self.icons_current[0]
+        # self.icon_anim_start()
+        self._update_menu()
 
     def run(self):
         self.icon.run()
-
-    def on_start(self, _):
-        self.streamer.start_stream()
-        self.set_icon(stream=self.streamer.process is not None)
-
-    def on_stop(self, _):
-        self.streamer.stop_stream()
-        self.set_icon(stream=self.streamer.process is not None)
 
     def on_quit(self, _):
         self.icon.stop()
@@ -79,3 +81,33 @@ class TrayApp:
         """メニューを最新状態に更新する"""
         self.icon.menu = self.build_menu()
         self.icon.update_menu()
+    
+
+    def icon_anim_loop(self):
+        now_icon = 0
+        # for img in itertools.cycle(self.icons_current):  # 無限ループで画像を切り替え
+        while True:
+            img = self.icons_current[now_icon % len(self.icons_current)]
+            if self.icon_anim_stop_event is not None and self.icon_anim_stop_event.is_set():
+                self.icon_anim_stop_event.clear()
+                break
+            self.icon.icon = img  # アイコンを変更
+            time.sleep(icons_interval.get(list(self.icons.keys())[list(self.icons.values()).index(self.icons_current)], 0.2))  # 0.5秒ごとに切り替え
+            now_icon = (now_icon + 1) % len(self.icons_current)
+    
+    def icon_anim_start(self):
+        if self.icon_anim_thread is not None and self.icon_anim_thread.is_alive():
+            self.icon_anim_stop_event = threading.Event().set()
+            self.icon_anim_thread.join() #停止するまで待機
+        self.icon_anim_thread = None
+
+        self.icon_anim_thread = threading.Thread(target=self.icon_anim_loop, daemon=True)
+        self.icon_anim_thread.start()
+
+
+
+if __name__ == "__main__":
+    tray = TrayApp()
+    tray.set_icon("talking")
+    tray.run()
+
