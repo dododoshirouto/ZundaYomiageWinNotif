@@ -1,3 +1,9 @@
+@echo off
+
+echo This app does not run on building exe.
+pause
+exit
+
 set APP_NAME=zundamon_yomiage_win_notif
 
 if exist dist\%APP_NAME%.exe (
