@@ -6,6 +6,7 @@ import time
 import threading
 import asyncio
 
+from voicevox_yomiage import VV_Speaker as VV
 
 # システムトレイ
 import pystray
@@ -23,17 +24,39 @@ icons_interval = {
     "talking": 0.2,
     "sleep": 0.6,
 }
+icons_prefix = {
+    VV.ずんだもん: "zundamon_",
+    VV.四国めたん: "metan_",
+    VV.春日部つむぎ: "tsumugi_",
+}
 
 class TrayApp:
-    def __init__(self, active=True, loop=lambda: None, loop_async=False):
+    def __init__(self, active=True, loop=lambda: None, loop_async=False, speaker=VV.ずんだもん):
         self.active = active
         self.is_talking = False
         self.loop = loop
         self.loop_async = loop_async
+        self.speaker = speaker
 
         self.icons_current_name = None
         self.icons_current = None
 
+
+        # import json
+        # print(json.dumps(icons_dict, indent=4, ensure_ascii=False))  # ensure_ascii=Falseで日本語をそのまま出力
+
+        self.icon = pystray.Icon(
+            "Zunda Yomiage Win Notif",
+            # self.icons.get("standby")[0],
+            menu=self.build_menu()
+        )
+
+        self.load_icons()
+        # self.set_icon("standby")
+        self.icon_anim_start()
+        self.start()
+    
+    def load_icons(self, force=False):
         # PyInstallerでパスを解決するときの対応:
         if hasattr(sys, '_MEIPASS'):
             # PyInstallerで固めたexeから実行されている場合
@@ -46,21 +69,10 @@ class TrayApp:
         for key, values in icons_dict.items():
             self.icons[key] = []
             for value in values:
-                icon_path = os.path.join(base_path, "assets", f"{value}.png")
+                icon_path = os.path.join(base_path, "assets", f"{icons_prefix.get(self.speaker)}{value}.png")
                 self.icons[key].append(Image.open(icon_path))
-
-        # import json
-        # print(json.dumps(icons_dict, indent=4, ensure_ascii=False))  # ensure_ascii=Falseで日本語をそのまま出力
-
-        self.icon = pystray.Icon(
-            "Zunda Yomiage Win Notif",
-            self.icons.get("standby")[0],
-            menu=self.build_menu()
-        )
-
-        self.set_icon("standby")
-        self.icon_anim_start()
-        self.start()
+        
+        self.set_icon(force=force)
 
     def build_menu(self):
         return Menu(
@@ -69,7 +81,7 @@ class TrayApp:
             MenuItem("終了", self.on_quit)
         )
     
-    def set_icon(self, icon_name=None):
+    def set_icon(self, icon_name=None, force=False):
         if icon_name is None:
             if self.active:
                 if self.is_talking:
@@ -79,12 +91,17 @@ class TrayApp:
             else:
                 icon_name = "sleep"
 
-        if self.icons_current_name == icon_name:
+        if self.icons_current_name == icon_name and not force:
             return
 
         self.icons_current_name = icon_name
         self.icons_current = self.icons.get(self.icons_current_name)
         self.icon.icon = self.icons_current[0]
+    
+    def set_speaker(self, speaker):
+        self.speaker = speaker
+        self.load_icons(True)
+        return self
 
     def run(self):
         self.icon.run()
@@ -125,7 +142,16 @@ class TrayApp:
         while True:
             img = self.icons_current[now_icon % len(self.icons_current)]
             self.icon.icon = img  # アイコンを変更
-            time.sleep(icons_interval.get(list(self.icons.keys())[list(self.icons.values()).index(self.icons_current)], 0.2))  # 0.5秒ごとに切り替え
+
+
+            status = "sleep"
+            if self.active:
+                if self.is_talking:
+                    status = "talking"
+                else:
+                    status = "standby"
+
+            time.sleep(icons_interval.get(status, 0.2))
             now_icon = (now_icon + 1) % len(self.icons_current)
     
     def icon_anim_start(self):
@@ -136,5 +162,6 @@ class TrayApp:
 
 if __name__ == "__main__":
     tray = TrayApp()
+    tray.set_speaker(VV.四国めたん)
     tray.run()
 
