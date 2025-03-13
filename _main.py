@@ -16,7 +16,7 @@ def init():
 
 
 async def loop():
-    print("loop")
+    # print("loop")
     texts = get_notifications()
     for text in texts:
         tray.is_talking = True
@@ -46,12 +46,14 @@ def get_notifications()->list[str]:
             notif_texts = []
             # 通知ウィンドウの全テキストを取得
             for child in notification.descendants():  # すべての子要素をチェック
+                if not child.is_visible():
+                    continue
                 text = child.window_text().strip()
                 if text:
                     # print(f"🔹 {text}")  # 通知の内容を出力
                     notif_texts.append(text)
             
-            notif_text = ", ".join(notif_texts)
+            notif_text = "。\n\n".join(notif_texts[4:6])
 
             if notif_text not in readed_notifications:
                 readed_notifications.append(notif_text)
