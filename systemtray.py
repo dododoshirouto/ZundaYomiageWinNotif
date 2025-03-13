@@ -1,6 +1,6 @@
 import sys
 import os
-from PIL import Image
+from PIL import Image, ImageWin
 
 import time
 import threading
@@ -47,7 +47,6 @@ class TrayApp:
 
         self.icon = pystray.Icon(
             "Zunda Yomiage Win Notif",
-            # self.icons.get("standby")[0],
             menu=self.build_menu()
         )
 
@@ -70,7 +69,8 @@ class TrayApp:
             self.icons[key] = []
             for value in values:
                 icon_path = os.path.join(base_path, "assets", f"{icons_prefix.get(self.speaker)}{value}.png")
-                self.icons[key].append(Image.open(icon_path))
+                icon_size = self.get_tray_icon_size()
+                self.icons[key].append(Image.open(icon_path).convert("RGBA").resize(icon_size, Image.NEAREST))
         
         self.set_icon(force=force)
 
@@ -78,6 +78,13 @@ class TrayApp:
         return Menu(
             MenuItem("ずんだ通知読み上げもん", lambda :None, enabled=False),
             MenuItem("無効にする", self.stop) if self.active else MenuItem("有効にする", self.start),
+            MenuItem(
+                self.speaker.name,
+                Menu(*[
+                    MenuItem(sp.name, lambda _, sp=sp: self.set_speaker(VV[sp.text]), checked=lambda _, sp=sp: self.speaker == sp)
+                    for sp in VV
+                ])
+            ),
             MenuItem("終了", self.on_quit)
         )
     
@@ -98,9 +105,10 @@ class TrayApp:
         self.icons_current = self.icons.get(self.icons_current_name)
         self.icon.icon = self.icons_current[0]
     
-    def set_speaker(self, speaker):
+    def set_speaker(self, speaker:VV):
         self.speaker = speaker
         self.load_icons(True)
+        self._update_menu()
         return self
 
     def run(self):
@@ -157,6 +165,20 @@ class TrayApp:
     def icon_anim_start(self):
         self.icon_anim_thread = threading.Thread(target=self.icon_anim_loop, daemon=True)
         self.icon_anim_thread.start()
+    
+    def get_tray_icon_size(self):
+        # hdc = ImageWin.HDC(0)
+        # dpi = hdc.GetDeviceCaps(88)  # LOGPIXELSX
+        # if dpi >= 192:  # 200% スケール
+        #     return 32, 32
+        # elif dpi >= 144:  # 150% スケール
+        #     return 24, 24
+        # else:  # 標準 (100%)
+        #     return 16, 16
+        import ctypes
+        size = ctypes.windll.user32.GetSystemMetrics(49)  # SM_CXSMICON
+        return size, size
+
 
 
 
