@@ -1,0 +1,16 @@
+/venv
+/build
+/dist
+# /_*
+*.lnk
+*.spec
+_Launch Cursor.bat
+
+# voicevox_core
+/onnxruntime*
+/README.txt
+/VERSION
+/voicevox_core.*
+/voicevox-download-windows-x64.exe
+/model
+/open_jtalk_dic_utf_8*
