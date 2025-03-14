@@ -6,11 +6,6 @@ pystray
 # get windows notification center
 pywinauto
 
-# translate english to kana
-# pyopenjtalk
-epitran
-unidecode
-
 # build
 # pyinstaller
 
