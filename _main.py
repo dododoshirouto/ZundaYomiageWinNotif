@@ -1,3 +1,5 @@
+import re
+
 from pywinauto import Desktop
 
 
@@ -64,6 +66,7 @@ def get_notifications()->list[str]:
                 readed_notifications.append(notif_text)
                 new_notifs.append(notif_text)
                 print(notif_text)
+                print("\n")
 
     except Exception as e:
         print(f"通知取得エラー: {e}")
@@ -71,10 +74,10 @@ def get_notifications()->list[str]:
     return new_notifs
 
 def text_processing(text:str):
-    text = text.replace(r"[\s^$\(\)]([0-9a-zA-Z/:\.#&\?-_+%]+\.[0-9a-zA-Z/:#&\?-_+%])[\s^$\(\)]", " ") # URL
-    text = text.replace(r"。{2,}", "。")
-    text = text.replace(r"\s{2,}", "")
-    text = text.replace(r"[「」『』（）\(\)\[\]\{\}]+", "")
+    text = re.sub(r"\b[a-zA-Z0-9._%+-]+\.[a-zA-Z]{2,}(?:/[a-zA-Z0-9._%+-]*)?\b", " ", text) # URL
+    text = re.sub(r"。{2,}", "。", text)
+    text = re.sub(r"\s{2,}", "", text)
+    text = re.sub(r"[「」『』（）【】\(\)\[\]\{\}]+", "", text)
     return text
 
 
