@@ -28,6 +28,12 @@ icons_prefix = {
     VV.ずんだもん: "zundamon_",
     VV.四国めたん: "metan_",
     VV.春日部つむぎ: "tsumugi_",
+    VV.雨晴はう: "hau_",
+    VV.中国うさぎ: "usagi_",
+    VV.九州そら: "sora_",
+    VV.栗田まろん: "maron_",
+    VV.WhiteCUL: "CUL_",
+    VV.No_7: "no_7_",
 }
 
 class TrayApp:
