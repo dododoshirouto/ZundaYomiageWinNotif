@@ -32609,7 +32609,7 @@ ENDARTERECTOMIES エンダータレクタミイズ
 ENDANGERING エンデインジャリング
 ENDANGER エンデインジャー
 END エンドゥ
-ENCYSTing エンシスティング
+ENCYSTING エンシスティング
 ENCYST エンシストゥ
 ENCYCLOPEDIC エンサイクロピーディク
 ENCYCLOPEDIA エンサイクロピーディア
@@ -47607,3 +47607,8 @@ AARON エアロン
 AARDWOLF アードウルフ
 AARDVARK アードバーク
 A エー
+
+VTUBER ブイチューバー
+GIGAZINE ギガジン
+UPGRADE アップグレード
+IPHONE アイフォン

@@ -82,6 +82,8 @@ class VoicevoxYomiage:
             lines = f.readlines()
             for i, line in enumerate(lines):
                 line_list = line.replace(r'\n', '').split(' ')
+                if len(line_list) != 2:
+                    continue
                 self.kana_dict[line_list[0]] = line_list[1]
 
         self.reduction=[["It\'s","イッツ"],["I\'m","アイム"],["You\'re","ユーァ"],["He\'s","ヒーィズ"],["She\'s","シーィズ"],["We\'re","ウィーアー"],["They\'re","ゼァー"],["That\'s","ザッツ"],["Who\'s","フーズ"],["Where\'s","フェアーズ"],["I\'d","アイドゥ"],["You\'d","ユードゥ"],["I\'ve","アイブ"],["I\'ll","アイル"],["You\'ll","ユール"],["He\'ll","ヒール"],["She\'ll","シール"],["We\'ll","ウィール"]]
