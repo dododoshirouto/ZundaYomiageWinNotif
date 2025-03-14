@@ -2,6 +2,10 @@
 
 ![image](https://github.com/user-attachments/assets/51a89b0c-ba08-4df4-8288-11429b8eb25d)
 
+![image](https://github.com/user-attachments/assets/b6a4100a-3f83-4064-8703-8dffe5105056)
+
+![image](https://github.com/user-attachments/assets/5d177430-1b9c-4024-9296-aa37138b3972)
+
 ## PCに来る通知をずんだもんが読み上げるだけのアプリ
 
 ### 概要
@@ -9,6 +13,8 @@
 PCに来る通知をずんだもんが読み上げてくれます
 
 かわいいね
+
+※Windowsのみです
 
 ### 使い方
 
@@ -28,6 +34,8 @@ PCに来る通知をずんだもんが読み上げてくれます
 タスクトレイアイコンを右クリックして、有効または無効を押すと切り替わります。
 
 無効になっていると、読み上げません。
+
+ずんだもん、四国めたん、春日部つむぎ を切り替えできます。
 
 #### 以上！！
 
