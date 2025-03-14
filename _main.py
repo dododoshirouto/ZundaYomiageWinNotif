@@ -56,7 +56,9 @@ def get_notifications()->list[str]:
                     # print(f"🔹 {text}")  # 通知の内容を出力
                     notif_texts.append(text)
             
-            notif_text = "。\n\n".join(notif_texts[4:6])
+            notif_text = "。\n".join(notif_texts[4:6])
+
+            notif_text = text_processing(notif_text)
 
             if notif_text not in readed_notifications:
                 readed_notifications.append(notif_text)
@@ -67,6 +69,13 @@ def get_notifications()->list[str]:
         print(f"通知取得エラー: {e}")
     
     return new_notifs
+
+def text_processing(text:str):
+    text = text.replace(r"[\s^$\(\)]([0-9a-zA-Z/:\.#&\?-_+%]+\.[0-9a-zA-Z/:#&\?-_+%])[\s^$\(\)]", " ") # URL
+    text = text.replace(r"。{2,}", "。")
+    text = text.replace(r"\s{2,}", "")
+    text = text.replace(r"[「」『』（）\(\)\[\]\{\}]+", "")
+    return text
 
 
 if __name__ == "__main__":
