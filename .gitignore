@@ -15,3 +15,11 @@ _Launch Cursor.bat
 /voicevox-download-windows-x64.exe
 /model
 /open_jtalk_dic_utf_8*
+
+# cmudict-0.7b
+cmudict-0.7b
+make_baseform.pl
+cmudict-0.7b_baseform
+# strawberry-perl
+strawberry-perl-5.40.0.1-64bit-portable.zip
+/strawberry-perl
