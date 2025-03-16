@@ -74,10 +74,10 @@ def get_notifications()->list[str]:
     return new_notifs
 
 def text_processing(text:str):
-    text = re.sub(r"\b[a-zA-Z0-9._%+-]+\.[a-zA-Z]{2,}(?:/[a-zA-Z0-9._%+-]*)?\b", " ", text) # URL
+    text = re.sub(r"\b[a-zA-Z0-9._%+-]+\.[a-zA-Z]{2,}(?:/[a-zA-Z0-9._%+-/…]*)?\b", " ", text) # URL
     text = re.sub(r"。{2,}", "。", text)
-    text = re.sub(r"\s{2,}", "", text)
-    text = re.sub(r"[「」『』（）【】\(\)\[\]\{\}]+", "", text)
+    text = re.sub(r"[\n\s。]{2,}", " ", text)
+    # text = re.sub(r"[「」『』（）【】\(\)\[\]\{\}]+", "", text)
     return text
 
 
