@@ -69,6 +69,8 @@ PCに来る通知をずんだもんが読み上げてくれます
 
 [Bilingual Emacspeak Project](http://www.argv.org/bep/) (c) 1999-2002 Bilingual Emacspeak Project
 
+[The CMU Pronouncing Dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict)
+
 [英語をカタカナ表記に変換してみる - Morikatron](https://tech.morikatron.ai/entry/2020/05/25/100000)
 
 [VOICEVOX：ずんだもん](https://zunko.jp/con_ongen_kiyaku.html)
