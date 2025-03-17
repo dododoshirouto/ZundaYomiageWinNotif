@@ -1,19 +1,21 @@
-@echo off
+@echo on
 
 @REM install python if not exist
-python --version >nul 2>&1
-if errorlevel 1 (
+set PYTHON=python
+where /q %PYTHON% --version
+if %errorlevel% <> 0 (
     echo install python...
     curl -o python.zip https://www.python.org/ftp/python/3.12.2/python-3.12.2-embed-amd64.zip
     mkdir python-3.12.2
     tar -xf python.zip -C python-3.12.2\
     del python.zip
-    set PATH=%~dp0python-3.12.2;%PATH%
+    @REM set PATH=%~dp0python-3.12.2;%PATH%
+    set PYTHON=python-3.12.2\python.exe
 )
 
 IF NOT EXIST venv\Scripts\activate (
     echo create venv...
-    python -m venv venv
+    %PYTHON% -m venv venv
 ) ELSE (
     echo venv is exists.
 )
@@ -51,20 +53,22 @@ IF NOT EXIST venv\Lib\site-packages\voicevox_core (
 
 IF NOT EXIST cmudict-0.7b_baseform (
     echo Downloading cmudict-0.7b_baseform...
-    perl --version >nul 2>&1
-    if errorlevel 1 (
+    set PERL=perl
+    where /q %PERL% --version
+    if %errorlevel% <> 0 (
         echo install perl...
         curl -L -o strawberry-perl-5.40.0.1-64bit-portable.zip https://github.com/StrawberryPerl/Perl-Dist-Strawberry/releases/download/SP_54001_64bit_UCRT/strawberry-perl-5.40.0.1-64bit-portable.zip
         echo unzip...
         mkdir strawberry-perl
         tar -xf strawberry-perl-5.40.0.1-64bit-portable.zip -C strawberry-perl\
         del strawberry-perl-5.40.0.1-64bit-portable.zip
-        set PATH=%CD%\strawberry-perl\perl\bin;%PATH%
+        @REM set PATH=%CD%\strawberry-perl\perl\bin;%PATH%
+        set PERL=strawberry-perl\perl\bin\perl
     )
     echo download cmudict-0.7b...
     curl -L -o cmudict-0.7b http://svn.code.sf.net/p/cmusphinx/code/trunk/cmudict/cmudict-0.7b
     curl -L -o make_baseform.pl http://svn.code.sf.net/p/cmusphinx/code/trunk/cmudict/scripts/make_baseform.pl
-    perl make_baseform.pl cmudict-0.7b cmudict-0.7b_baseform
+    %PERL% make_baseform.pl cmudict-0.7b cmudict-0.7b_baseform
 ) ELSE (
     echo cmudict-0.7b_baseform is exists.
 )
