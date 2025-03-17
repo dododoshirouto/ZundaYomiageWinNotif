@@ -5,9 +5,13 @@ from pywinauto import Desktop
 
 from systemtray import TrayApp
 from voicevox_yomiage import VoicevoxYomiage, VV_Speaker
+from eng_to_kana import EnglishToKana
+
+
 
 
 vv = VoicevoxYomiage(speaker_id=VV_Speaker.ずんだもん.value)
+e2k = EnglishToKana()
 tray = None
 
 def init():
@@ -77,6 +81,8 @@ def text_processing(text:str):
     text = re.sub(r"\b[a-zA-Z0-9._%+-]+\.[a-zA-Z]{2,}(?:/[a-zA-Z0-9._%+-/…]*)?\b", " ", text) # URL
     text = re.sub(r"。{2,}", "。", text)
     text = re.sub(r"[\n\s。]{2,}", " ", text)
+    text = vv.eng_to_kana(text)
+    text = e2k.convertsZakkuri(text)
     # text = re.sub(r"[「」『』（）【】\(\)\[\]\{\}]+", "", text)
     return text
 
