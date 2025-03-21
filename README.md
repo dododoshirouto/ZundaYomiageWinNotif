@@ -16,7 +16,7 @@ PCに来る通知をずんだもんが読み上げてくれます
 
 ※Windowsのみです
 
-[いいねお願いします！ - booth]([url](https://booth.pm/ja/items/6692796))
+[いいねお願いします！ - booth](https://booth.pm/ja/items/6692796)
 
 ### 使い方
 
@@ -65,7 +65,7 @@ PCに来る通知をずんだもんが読み上げてくれます
 
 アイコン画像のみ (c) どどど素人 dododo-shirouto 2025　[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1)
 
-[voicevox_core]([url](https://github.com/VOICEVOX/voicevox_core))
+[voicevox_core](https://github.com/VOICEVOX/voicevox_core)
 
 [Bilingual Emacspeak Project](http://www.argv.org/bep/) (c) 1999-2002 Bilingual Emacspeak Project
 
