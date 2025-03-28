@@ -15,6 +15,7 @@ if exist dist\%APP_NAME%.exe (
     --onefile ^
     --name "%APP_NAME%" ^
     --icon "icon.ico" ^
+    --noconsole ^
     --add-data "model/*;voicevox_core/model"^
     --add-data "open_jtalk_dic_utf_8-1.11;open_jtalk_dic_utf_8-1.11"^
     --add-data "bep-eng.dic.txt;."^
@@ -22,7 +23,7 @@ if exist dist\%APP_NAME%.exe (
     --add-data "assets;assets"^
     _main.py
 
-dist\%APP_NAME%.exe
+@REM dist\%APP_NAME%.exe
 
 :pause
 
