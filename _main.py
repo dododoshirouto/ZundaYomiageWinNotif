@@ -26,8 +26,11 @@ def init():
 
 async def loop():
     global tray
+    if tray is None or tray.speaker is None:
+        return
+    
     # print("loop")
-    if tray.speaker is None or vv.speaker_id != tray.speaker.value:
+    if vv.speaker_id != tray.speaker.value:
         print("speaker change to: " + str(tray.speaker.name))
         vv.set_speaker(tray.speaker.value)
 
@@ -54,7 +57,7 @@ def get_notifications()->list[str]:
         desktop = Desktop(backend="uia")
 
         # 通知のウィンドウを探す (アプリ名が "通知" のものを探す)
-        notifications = [win for win in desktop.windows() if "新しい通知" in win.window_text()]
+        notifications = [win for win in desktop.windows(title_re="新しい通知.*") if "新しい通知" in win.window_text()]
 
         for notification in notifications:
             notif_texts = []
