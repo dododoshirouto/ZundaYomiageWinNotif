@@ -15,7 +15,6 @@ if exist dist\%APP_NAME%.exe (
     --onefile ^
     --name "%APP_NAME%" ^
     --icon "icon.ico" ^
-    --noconsole ^
     --add-data "model/*;voicevox_core/model"^
     --add-data "open_jtalk_dic_utf_8-1.11;open_jtalk_dic_utf_8-1.11"^
     --add-data "bep-eng.dic.txt;."^
@@ -23,6 +22,48 @@ if exist dist\%APP_NAME%.exe (
     --add-data "assets;assets"^
     _main.py
 
-@REM dist\%APP_NAME%\%APP_NAME%.exe
+dist\%APP_NAME%.exe
 
-pause
+:pause
+
+
+goto :endmemo
+:memo
+voicevox models
+pd0.bin
+pi0.bin
+d0.bin
+    ずんだもん
+    四国めたん
+    春日部つむぎ
+    雨晴はう
+pd2.bin
+pi2.bin
+d2.bin
+    九州そら
+    九州そら_ささやき
+pd8.bin
+pi8.bin
+d8.bin
+    WhiteCUL
+pd6.bin
+pi6.bin
+d6.bin
+    No.7
+    No_7_読み聞かせ
+pd3.bin
+pi3.bin
+d3.bin
+    中国うさぎ
+pd14.bin
+pi14.bin
+d14.bin
+    栗田まろん
+pd5.bin
+pi5.bin
+d5.bin
+    四国めたん_ヒソヒソ
+    ずんだもん_ヒソヒソ
+
+
+:endmemo

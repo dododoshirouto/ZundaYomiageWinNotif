@@ -15,6 +15,7 @@ _Launch Cursor.bat
 /voicevox_core.*
 /voicevox-download-windows-x64.exe
 /model
+/model_unuse
 /open_jtalk_dic_utf_8*
 
 # cmudict-0.7b

@@ -25,8 +25,10 @@ def init():
 
 
 async def loop():
+    global tray
     # print("loop")
-    if vv.speaker_id != tray.speaker.value:
+    if tray.speaker is None or vv.speaker_id != tray.speaker.value:
+        print("speaker change to: " + str(tray.speaker.name))
         vv.set_speaker(tray.speaker.value)
 
     texts = get_notifications()
