@@ -1,10 +1,10 @@
 # ずんだ通知読み上げもん
 
-![image](https://github.com/user-attachments/assets/51a89b0c-ba08-4df4-8288-11429b8eb25d)
-
-![image](https://github.com/user-attachments/assets/b6a4100a-3f83-4064-8703-8dffe5105056)
-
-![image](https://github.com/user-attachments/assets/5d177430-1b9c-4024-9296-aa37138b3972)
+<p>
+  <img src="https://github.com/user-attachments/assets/51a89b0c-ba08-4df4-8288-11429b8eb25d">
+  <img src="https://github.com/user-attachments/assets/b6a4100a-3f83-4064-8703-8dffe5105056">
+  <img src="https://github.com/user-attachments/assets/5d177430-1b9c-4024-9296-aa37138b3972">
+</p>
 
 ## PCに来る通知をずんだもんが読み上げるだけのアプリ
 
