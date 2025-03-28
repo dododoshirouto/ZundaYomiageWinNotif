@@ -1,7 +1,10 @@
 import re
+import sys
+import os
 
 from pywinauto import Desktop
 
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 from systemtray import TrayApp
 from voicevox_yomiage import VoicevoxYomiage, VV_Speaker

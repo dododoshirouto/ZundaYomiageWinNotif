@@ -8,7 +8,7 @@ if errorlevel 1 (
     mkdir python-3.12.2
     tar -xf python.zip -C python-3.12.2\
     del python.zip
-    set PATH=%~dp0python-3.12.2;%PATH%
+    set PATH="%~dp0python-3.12.2;%PATH%"
 )
 
 IF NOT EXIST venv\Scripts\activate (
@@ -59,7 +59,7 @@ IF NOT EXIST cmudict-0.7b_baseform (
         mkdir strawberry-perl
         tar -xf strawberry-perl-5.40.0.1-64bit-portable.zip -C strawberry-perl\
         del strawberry-perl-5.40.0.1-64bit-portable.zip
-        set PATH=%CD%\strawberry-perl\perl\bin;%PATH%
+        set PATH="%CD%\strawberry-perl\perl\bin;%PATH%"
     )
     echo download cmudict-0.7b...
     curl -L -o cmudict-0.7b http://svn.code.sf.net/p/cmusphinx/code/trunk/cmudict/cmudict-0.7b
