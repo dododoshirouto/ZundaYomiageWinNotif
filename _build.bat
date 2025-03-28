@@ -6,12 +6,13 @@ echo This app does not run on building exe.
 
 set APP_NAME=zundamon_yomiage_win_notif
 
-if exist dist\%APP_NAME% (
-    rmdir /s /q dist\%APP_NAME%
+if exist dist\%APP_NAME%.exe (
+    rmdir /s /q dist\%APP_NAME%.exe
 )
 
     @REM --noconsole ^
-"venv\Scripts\python.exe" -m PyInstaller --onedir ^
+"venv\Scripts\python.exe" -m PyInstaller^
+    --onefile ^
     --name "%APP_NAME%" ^
     --icon "icon.ico" ^
     --noconsole ^
@@ -22,6 +23,6 @@ if exist dist\%APP_NAME% (
     --add-data "assets;assets"^
     _main.py
 
-dist\%APP_NAME%\%APP_NAME%.exe
+@REM dist\%APP_NAME%\%APP_NAME%.exe
 
 pause
