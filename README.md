@@ -16,6 +16,8 @@ PCに来る通知をずんだもんが読み上げてくれます
 
 ※Windowsのみです
 
+[いいねお願いします！ - booth](https://booth.pm/ja/items/6692796)
+
 ### 使い方
 
 #### 初回インストール
@@ -45,7 +47,7 @@ PCに来る通知をずんだもんが読み上げてくれます
 - 九州そら
 - 栗田まろん
 - WhiteCUL
-- No_7
+- No.7
 
 #### 以上！！
 
@@ -57,8 +59,36 @@ PCに来る通知をずんだもんが読み上げてくれます
 
 ### ライセンス
 
-よくわからんけどMIT
+僕が作ったソースコードについては、よくわからんけど[MIT](https://opensource.org/license/mit)
 
 ただしアイコン画像の自作発言はやめて下さい。どこまでも追いかけます。
 
-アイコン画像のみ (c) どどど素人 dododo-shirouto 2025
+アイコン画像のみ (c) どどど素人 dododo-shirouto 2025　[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1)
+
+[voicevox_core](https://github.com/VOICEVOX/voicevox_core)
+
+[Bilingual Emacspeak Project](http://www.argv.org/bep/) (c) 1999-2002 Bilingual Emacspeak Project
+
+[The CMU Pronouncing Dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict)
+
+[英語をカタカナ表記に変換してみる - Morikatron](https://tech.morikatron.ai/entry/2020/05/25/100000)
+
+[VOICEVOX：ずんだもん](https://zunko.jp/con_ongen_kiyaku.html)
+
+[VOICEVOX：四国めたん](https://zunko.jp/con_ongen_kiyaku.html)
+
+[VOICEVOX：春日部つむぎ](https://tsumugi-official.studio.site/rule)
+
+[VOICEVOX：雨晴はう](https://hau-amehare.chu.jp/?page_id=225)
+
+[VOICEVOX：中国うさぎ](https://zunko.jp/con_ongen_kiyaku.html)
+
+[VOICEVOX：九州そら](https://zunko.jp/con_ongen_kiyaku.html)
+
+[VOICEVOX：栗田まろん](https://aivoice.jp/character/maron/)
+
+[VOICEVOX：WhiteCUL](https://www.whitecul.com/guideline)
+
+[VOICEVOX：No.7](https://voiceseven.com/)
+
+ソースコードの一部（大部分）に、OpenAIのChatGPTと、GoogleのGeminiを利用しています！

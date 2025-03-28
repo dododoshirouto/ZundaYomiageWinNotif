@@ -6,6 +6,7 @@
 *.lnk
 *.spec
 _Launch Cursor.bat
+/python-*
 
 # voicevox_core
 /onnxruntime*
