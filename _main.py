@@ -45,7 +45,7 @@ async def loop():
 
 
 
-readed_notifications = []
+readed_notifications = set()
 
 def get_notifications()->list[str]:
     global readed_notifications
@@ -75,7 +75,7 @@ def get_notifications()->list[str]:
             notif_text = text_processing(notif_text)
 
             if notif_text not in readed_notifications:
-                readed_notifications.append(notif_text)
+                readed_notifications.add(notif_text)
                 new_notifs.append(notif_text)
                 print(notif_text)
                 print("\n")

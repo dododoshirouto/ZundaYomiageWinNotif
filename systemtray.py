@@ -126,16 +126,29 @@ class TrayApp:
     
     def loop_call(self):
         while self.active:
-            if self.loop_async:
-                asyncio.run(self.loop())
-            else:
-                self.loop()
+            self.loop()
             time.sleep(0.1)
+    
+    def loop_async_runner(self):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        async def async_loop_forever():
+            while self.active:
+                await self.loop()
+                await asyncio.sleep(0.1)
+
+        loop.run_until_complete(async_loop_forever())
 
     def start(self):
         self.active = True
         self.is_talking = False
-        self.thread = threading.Thread(target=self.loop_call, daemon=True)
+
+        if self.loop_async:
+            self.thread = threading.Thread(target=self.loop_async_runner, daemon=True)
+        else:
+            self.thread = threading.Thread(target=self.loop_call, daemon=True)
+
         self.thread.start()
         self._update_menu()
     
