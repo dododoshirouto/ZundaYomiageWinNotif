@@ -114,6 +114,7 @@ SAMPLE サンプル
 LAYOUT レイアウト
 GLOBAL グローバル
 SCRIPT スクリプト
+SCRIPTS スクリプト
 SERVER サーバー
 HANDLE ハンドル
 CLAUDE クロード
@@ -37725,7 +37726,7 @@ CONTENTIOUS コンテンシャス
 CONTENTION コンテンション
 CONTENTING コンテンティング
 CONTENTED コンテンティド
-CONTENT コンテント
+CONTENT コンテンツ
 CONTENDS コンテンズ
 CONTENDING コンテンディング
 CONTENDER コンテンダー
@@ -47626,3 +47627,6 @@ illumina イルミナ
 techpowerup テックパワーアップ
 sicarriershows サイキャリアショウ
 metrology メトロロジー
+Tampermonkey タンパーモンキー
+Chrome クロム
+manifest マニフェスト
