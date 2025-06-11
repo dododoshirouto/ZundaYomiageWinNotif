@@ -47630,3 +47630,4 @@ metrology メトロロジー
 Tampermonkey タンパーモンキー
 Chrome クロム
 manifest マニフェスト
+API エーピーアイ
