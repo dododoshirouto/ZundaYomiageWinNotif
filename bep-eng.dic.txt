@@ -87,6 +87,7 @@ GRAPHIC グラフィック
 HUFFMAN ハフマン
 TRAILER トレーラー
 DUOTONE デュオトーン
+GOOGLE グーグル
 COMMIT コミット
 BRANCH ブランチ
 ORIGIN オリジン
@@ -115,6 +116,7 @@ GLOBAL グローバル
 SCRIPT スクリプト
 SERVER サーバー
 HANDLE ハンドル
+CLAUDE クロード
 PUBLIC パブリック
 CREATE クリエイト
 FELICA フェリカ
@@ -176,6 +178,8 @@ COORD コーード
 UNITY ユニティー
 LEVEL レベル
 TODO トゥードゥー
+DEEP ディープ
+MIND マインド
 LINE ライン
 BASI ベーシス
 ASIN アークサイン
